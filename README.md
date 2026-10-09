@@ -62,7 +62,7 @@ Les contrôles sont pas mal expliquées sur l'écran, mais en gros :
 - Recentrer sur votre position : 5 ou OK
 - Forcer une mise à jour de la carte (pas typiquement nécessaire) : 0
 
-Si la carte commence centrée sur la Gare Centrale à Montréal, ça veut dire que votre position n'était pas immédiatement disponible au moment de charger l'application. Au bout de plusieurs seconds, ressayer le 5 ou OK pour recentrer sur votre position.
+Si la carte commence centrée sur la Gare Centrale à Montréal, ça veut dire que votre position n'était pas immédiatement disponible au moment de charger l'application. Au bout de plusieurs secondes, ressayez le 5 ou OK pour recentrer sur votre position.
 
 ### In english
 
