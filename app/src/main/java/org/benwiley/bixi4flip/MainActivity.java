@@ -315,12 +315,12 @@ public class MainActivity extends Activity {
                 String when = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new java.util.Date());
                 ui.post(() -> {
                     overlay.stations = list;
-                    updatedText = "Updated " + when;
+                    updatedText = "À jour " + when;
                     updateBottomBar();
                     map.invalidate();
                 });
             } catch (Exception ex) {
-                ui.post(() -> { updatedText = "Offline - 0 to retry"; updateBottomBar(); });
+                ui.post(() -> { updatedText = "Hors ligne"; updateBottomBar(); });
             }
         });
     }
@@ -344,7 +344,7 @@ public class MainActivity extends Activity {
     }
 
     private void updateBottomBar() {
-        bottomBar.setText("Reg/E-bike/Docks | " + updatedText + " | Update=0");
+        bottomBar.setText("Reg/Élec/Vides | " + updatedText + " | Mise à jour = 0");
     }
 
     // ---------------------------------------------------------------- drawing
@@ -404,7 +404,7 @@ public class MainActivity extends Activity {
                     Station s = visibleStations.get(i);
                     float x = visible.get(i)[0], y = visible.get(i)[1];
                     String counts = s.hasStatus
-                            ? (full ? "Reg " + s.regular + "  E " + s.ebikes + "  Docks " + s.docks
+                            ? (full ? "Reg " + s.regular + "  E " + s.ebikes + "  Vide " + s.docks
                                : s.regular + "/" + s.ebikes + "/" + s.docks)
                             : "n/a";
                     String name = full ? TextUtils.ellipsize(s.name, new android.text.TextPaint(text),
