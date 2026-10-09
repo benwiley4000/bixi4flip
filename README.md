@@ -16,9 +16,11 @@ I made the app logo in [Photopea](https://www.photopea.com/) (not with AI). "BIX
 
 ## "Screenshots" (je sais pas prendre un screenshot sur mon flip phone)
 
-<img width="500" alt="P_20261009_151046" src="https://github.com/user-attachments/assets/f3162f47-1da9-4c24-8cb0-7a769400c7d0" />
-<img width="500"  alt="P_20261009_151057" src="https://github.com/user-attachments/assets/15219a93-0100-4874-ac16-4866afa7d7d9" />
 <img width="500" alt="P_20261009_151114" src="https://github.com/user-attachments/assets/d79101d6-8282-4606-bb58-9a4f67b426b4" />
+
+<img width="500"  alt="P_20261009_151057" src="https://github.com/user-attachments/assets/15219a93-0100-4874-ac16-4866afa7d7d9" />
+
+<img width="500" alt="P_20261009_151046" src="https://github.com/user-attachments/assets/f3162f47-1da9-4c24-8cb0-7a769400c7d0" />
 
 ## Comment installer ? How to install
 
