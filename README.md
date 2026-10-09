@@ -95,3 +95,9 @@ If the map starts centered on Gare Centrale in Montreal, that means your locatio
 4. Once things are done loading, open a terminal
 5. `./gradlew assembleDebug`
 6. To install the built apk on your phone connected via USB: `adb install app/build/outputs/apk/debug/app-debug.apk`
+
+## Pull requests
+
+SVP pas d'améliorations, c'est vraiment censé d'être un truc très simple. S'il s'agit véritablement d'une fix bogue, allez-y, mais soyez certain de bien comprendre le code que vous me donnez, s'il vous plaît.
+
+Please no "improvements," it's really meant to be a very simple thing. If you've really got a bug fix, go ahead, but be certain to understand the code you're providing, please.
