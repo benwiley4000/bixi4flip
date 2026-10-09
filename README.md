@@ -38,14 +38,18 @@ I made the app logo in [Photopea](https://www.photopea.com/) (not with AI). "BIX
 
 ### En français
 
-1. Télécharger [adb](https://developer.android.com/tools/adb)
+Notez que si votre flip phone n'est pas basé sur Android, elle ne roulera pas cette application.
+
+1. Télécharger [adb](https://developer.android.com/tools/adb). Suivez les indications sur cette page pour comment utiliser adb avec votre téléphone.
 2. Connecter votre flip phone à votre ordi via USB
 3. Télécharger l'apk des Releases
 4. Ouvrir un terminal dans le dossier de téléchargements et rouler : `adb install org.benwiley.bixi4flip.apk`
 
 ### In english
 
-1. Download [adb](https://developer.android.com/tools/adb)
+Note that if your flip phone is not based on Android, it won't run this app.
+
+1. Download [adb](https://developer.android.com/tools/adb). Follow the instructions on this page for how to use adb with your phone.
 2. Connect your Android flip phone to your computer with USB
 3. Download the apk from releases
 4. Open a terminal in the download directory and run: `adb install org.benwiley.bixi4flip.apk`
