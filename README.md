@@ -6,13 +6,25 @@ Voici une appli Android qui donne accès, sur une flip phone, à la carte de sta
 
 Here's an Android app that gives access, on a flip phone, to the Bixi station map (and *only* to that). To *borrow* a Bixi as a flipphoner, you need to order a [Bixi Key](https://support.bixi.com/hc/en-ca/articles/7787493633811-How-can-I-order-a-BIXI-key)!
 
+## Ce que c'est / What it is
+
+Une intégration basique entre Open Street Map et l'API public de BIXI, avec de la navigation par bouton. Ça permet de voir le nombre de vélos réguliers et éléctriques, ainsi que les points d'ancrage vides, dans toutes les stations BIXI pres de chez vous et à travers le Québec.
+
+A basic integration between Open Street Map and the public Bixi API, with button navigation. It lets you see the number of regular and electric bikes, plus empty docks, at all the Bixi stations in your area and across Québec.
+
 ## AI Disclaimer IA
+
+### En français
 
 J'ai genéré la grande partie de ce code vraiment dans quelques secondes avec la version gratuite de Claude. J'en suis pas grandement fier, mais c'est vraiment pour réduire ma dépendence sur ma téléphone intélligente. Je suis plus développeur web que Android, mais le code n'est pas très immense, alors j'ai implémenté la traduction d'interface à la main, et s'il y a des bogues, je vais les fixer à la main.
 
+J'ai fait le logo d'app dans [Photopea](https://www.photopea.com/) (pas avec de l'IA). Le logo "BIXI" appartient à Bixi. Je l'ai copié... sans permission. En esperant que je serai pas poursuit en justice ! La flip phone dans l'image est un Motorola Razr, ce qui peut pas rouler cette application, car ça ne roule pas Android.
+
+### In english
+
 I generated most of this code in really a few seconds with the free version of Claude. I'm not super proud of that, but it's really to reduce my dependance on my smartphone. I'm more of a web than Android developer, but the code isn't huge, so I implemented the UI translation by hand, and I will fix any bugs by hand, if there are any.
 
-I made the app logo in [Photopea](https://www.photopea.com/) (not with AI). "BIXI" logo belongs to Bixi. I copied it... without permission. Hopefully will not be sued!
+I made the app logo in [Photopea](https://www.photopea.com/) (not with AI). "BIXI" logo belongs to Bixi. I copied it... without permission. Hopefully will not be sued! The flip phone pictured is a Motorola Razr, which cannot run this app because it doesn't run Android.
 
 ## "Screenshots" (je sais pas prendre un screenshot sur mon flip phone)
 
