@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
     private LocationManager locationManager;
     private boolean userMoved = false;
     private boolean haveFix = false;
-    private String updatedText = "Loading...";
+    private String updatedText = "Chargement...";
 
     private final Handler ui = new Handler(Looper.getMainLooper());
     private final ExecutorService io = Executors.newSingleThreadExecutor();
