@@ -169,23 +169,18 @@ public class MainActivity extends Activity {
             case KeyEvent.KEYCODE_DPAD_UP:    pan(0, -step); return true;
             case KeyEvent.KEYCODE_DPAD_DOWN:  pan(0, step);  return true;
             case KeyEvent.KEYCODE_3:
-            case KeyEvent.KEYCODE_POUND:
-            case KeyEvent.KEYCODE_VOLUME_UP:
                 // Zoom instantly instead of with transition
                 setZoomNow(map.getZoomLevelDouble() + 1); return true;
                 // map.getController().zoomIn(); return true;
             case KeyEvent.KEYCODE_1:
-            case KeyEvent.KEYCODE_STAR:
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
                 // Zoom instantly instead of with transition
                 setZoomNow(map.getZoomLevelDouble() - 1); return true;
                 // map.getController().zoomOut(); return true;
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-            case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_5:
                 recenter(); return true;
-            case KeyEvent.KEYCODE_0:
-                refreshStations(); return true;
+// Disable force refresh for now
+//            case KeyEvent.KEYCODE_0:
+//                refreshStations(); return true;
         }
         return super.dispatchKeyEvent(e);
     }
@@ -198,10 +193,7 @@ public class MainActivity extends Activity {
         switch (k) {
             case KeyEvent.KEYCODE_DPAD_LEFT: case KeyEvent.KEYCODE_DPAD_RIGHT:
             case KeyEvent.KEYCODE_DPAD_UP: case KeyEvent.KEYCODE_DPAD_DOWN:
-            case KeyEvent.KEYCODE_DPAD_CENTER: case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_1: case KeyEvent.KEYCODE_3: case KeyEvent.KEYCODE_5:
-            case KeyEvent.KEYCODE_0: case KeyEvent.KEYCODE_STAR: case KeyEvent.KEYCODE_POUND:
-            case KeyEvent.KEYCODE_VOLUME_UP: case KeyEvent.KEYCODE_VOLUME_DOWN:
                 return true;
         }
         return false;
@@ -312,7 +304,7 @@ public class MainActivity extends Activity {
                     s.hasStatus = true;
                 }
                 List<Station> list = new ArrayList<>(byId.values());
-                String when = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new java.util.Date());
+                String when = new SimpleDateFormat("HH'h'mm", Locale.getDefault()).format(new java.util.Date());
                 ui.post(() -> {
                     overlay.stations = list;
                     updatedText = "À jour " + when;
@@ -340,11 +332,11 @@ public class MainActivity extends Activity {
     }
 
     private void updateTopBar() {
-        topBar.setText("Zoom+ = 3,#,Vol+  Zoom- = 1,*,Vol-  Pos = 5,OK");
+        topBar.setText("1 = Dézoomer    3 = Zoomer    5 = Réinitialiser");
     }
 
     private void updateBottomBar() {
-        bottomBar.setText("Reg/Élec/Vides | " + updatedText + " | Mise à jour = 0");
+        bottomBar.setText("Reguliers/Électriques/Vides | " + updatedText);
     }
 
     // ---------------------------------------------------------------- drawing
