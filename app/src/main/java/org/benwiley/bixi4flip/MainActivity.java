@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
     private static final String GBFS_URL = "https://gbfs.velobixi.com/gbfs/2-2/gbfs.json";
     private static final GeoPoint MONTREAL = new GeoPoint(45.5017, -73.5673);
     private static final long REFRESH_MS = 60_000;
+    private static final double DEFAULT_ZOOM = 15;
 
     private MapView map;
     private TextView topBar;
@@ -103,7 +104,7 @@ public class MainActivity extends Activity {
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMinZoomLevel(10.0);
         map.setMaxZoomLevel(19.0);
-        map.getController().setZoom(14.0);
+        map.getController().setZoom(DEFAULT_ZOOM);
         map.getController().setCenter(MONTREAL);
         overlay = new StationOverlay();
         map.getOverlays().add(overlay);
@@ -210,7 +211,7 @@ public class MainActivity extends Activity {
         if (overlay.me != null) {
             userMoved = false;
             map.getController().setCenter(overlay.me);
-            map.getController().setZoom(16.0);
+            map.getController().setZoom(DEFAULT_ZOOM);
         } else {
             startLocation();
         }
@@ -246,7 +247,7 @@ public class MainActivity extends Activity {
         overlay.me = p;
         if (!haveFix && !userMoved) {
             map.getController().setCenter(p);
-            map.getController().setZoom(16.0);
+            map.getController().setZoom(DEFAULT_ZOOM);
         }
         haveFix = true;
         map.invalidate();
