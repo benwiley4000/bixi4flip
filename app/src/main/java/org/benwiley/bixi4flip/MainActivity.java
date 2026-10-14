@@ -47,11 +47,15 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.content.SharedPreferences;
+
 public class MainActivity extends Activity {
 
     // Change this one constant to retheme the app.
     static final int BIXI_RED = Color.parseColor("#D52B1E");
     static final int GREY = Color.parseColor("#666666");
+    static final int BLUE_DOT = Color.parseColor("#1A73E8");
+    static final int LIGHTER_GREY_DOT = Color.parseColor("#9E9E9E");
 
     private static final String GBFS_URL = "https://gbfs.velobixi.com/gbfs/2-2/gbfs.json";
     private static final GeoPoint MONTREAL = new GeoPoint(45.5017, -73.5673);
@@ -66,6 +70,8 @@ public class MainActivity extends Activity {
     private boolean userMoved = false;
     private boolean haveFix = false;
     private String updatedText = "Chargement...";
+
+    private GeoPoint initialPosition = MONTREAL;
 
     private final Handler ui = new Handler(Looper.getMainLooper());
     private final ExecutorService io = Executors.newSingleThreadExecutor();
@@ -98,6 +104,11 @@ public class MainActivity extends Activity {
         getWindow().setStatusBarColor(BIXI_RED);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        SharedPreferences sp = getSharedPreferences("lastpos", MODE_PRIVATE);
+        if (sp.contains("lat")) {
+            initialPosition = new GeoPoint(sp.getFloat("lat", 0f), sp.getFloat("lon", 0f));
+        }
+
         map = new MapView(this);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
@@ -105,7 +116,7 @@ public class MainActivity extends Activity {
         map.setMinZoomLevel(10.0);
         map.setMaxZoomLevel(19.0);
         map.getController().setZoom(DEFAULT_ZOOM);
-        map.getController().setCenter(MONTREAL);
+        map.getController().setCenter(initialPosition);
         overlay = new StationOverlay();
         map.getOverlays().add(overlay);
 
@@ -154,6 +165,16 @@ public class MainActivity extends Activity {
         ui.removeCallbacks(autoRefresh);
         stopLocation();
         map.onPause();
+    }
+
+    @Override protected void onStop() {
+        super.onStop();
+        finishAndRemoveTask();   // any hiding closes the activity and removes it from recents
+    }
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        if (isFinishing()) android.os.Process.killProcess(android.os.Process.myPid());   // ends the process and all our threads
     }
 
     // ---------------------------------------------------------------- D-pad keys
@@ -209,12 +230,13 @@ public class MainActivity extends Activity {
 
     private void recenter() {
         if (overlay.me != null) {
-            userMoved = false;
             map.getController().setCenter(overlay.me);
-            map.getController().setZoom(DEFAULT_ZOOM);
         } else {
+            map.getController().setCenter(initialPosition);
             startLocation();
         }
+        userMoved = false;
+        map.getController().setZoom(DEFAULT_ZOOM);
     }
 
     // ---------------------------------------------------------------- location
@@ -251,6 +273,10 @@ public class MainActivity extends Activity {
         }
         haveFix = true;
         map.invalidate();
+        getSharedPreferences("lastpos", MODE_PRIVATE).edit()
+            .putFloat("lat", (float) p.getLatitude())
+            .putFloat("lon", (float) p.getLongitude())
+            .apply();
     }
 
     @Override public void onRequestPermissionsResult(int code, String[] perms, int[] res) {
@@ -353,6 +379,7 @@ public class MainActivity extends Activity {
         private final Paint boxRing = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final Paint text = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final Paint meDot = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint oldMeDot = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         StationOverlay() {
             dot.setColor(BIXI_RED);
@@ -364,7 +391,8 @@ public class MainActivity extends Activity {
             text.setColor(Color.BLACK);
             text.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11,
                     getResources().getDisplayMetrics()));
-            meDot.setColor(Color.parseColor("#1A73E8"));
+            meDot.setColor(BLUE_DOT);
+            oldMeDot.setColor(LIGHTER_GREY_DOT);
         }
 
         @Override public void draw(Canvas c, MapView mv, boolean shadow) {
@@ -423,6 +451,10 @@ public class MainActivity extends Activity {
                 proj.toPixels(me, pt);
                 c.drawCircle(pt.x, pt.y, 8 * dp, dotRing);
                 c.drawCircle(pt.x, pt.y, 6 * dp, meDot);
+            } else {
+                proj.toPixels(initialPosition, pt);
+                c.drawCircle(pt.x, pt.y, 8 * dp, dotRing);
+                c.drawCircle(pt.x, pt.y, 6 * dp, oldMeDot);
             }
         }
     }
