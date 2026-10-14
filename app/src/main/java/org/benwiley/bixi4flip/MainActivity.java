@@ -234,8 +234,8 @@ public class MainActivity extends Activity {
             map.getController().setCenter(overlay.me);
         } else {
             map.getController().setCenter(initialPosition);
-            startLocation();
         }
+        startLocation();
         userMoved = false;
         map.getController().setZoom(DEFAULT_ZOOM);
     }
