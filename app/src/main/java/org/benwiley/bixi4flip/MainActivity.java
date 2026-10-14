@@ -150,6 +150,8 @@ public class MainActivity extends Activity {
         lpTop.gravity = Gravity.TOP;
         root.addView(topBar, lpTop);
         setContentView(root);
+
+        startLocation();
     }
 
     @Override protected void onResume() {
