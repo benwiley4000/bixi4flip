@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
     };
 
     private final LocationListener locationListener = new LocationListener() {
-        @Override public void onLocationChanged(Location loc) { onFix(loc); stopLocation(); }
+        @Override public void onLocationChanged(Location loc) { onFix(loc, false); stopLocation(); }
         @Override public void onStatusChanged(String p, int s, Bundle e) { }
         @Override public void onProviderEnabled(String p) { }
         @Override public void onProviderDisabled(String p) { }
@@ -257,16 +257,20 @@ public class MainActivity extends Activity {
                 locationManager.requestLocationUpdates(prov, 0, 0, locationListener, Looper.getMainLooper());
             } catch (Exception ignored) { /* provider disabled or unavailable: just skip it */ }
         }
-        if (best != null) onFix(best);
+        if (best != null) onFix(best, true);
     }
 
     private void stopLocation() {
         try { locationManager.removeUpdates(locationListener); } catch (Exception ignored) { }
     }
 
-    private void onFix(Location loc) {
+    private void onFix(Location loc, boolean stale) {
         GeoPoint p = new GeoPoint(loc.getLatitude(), loc.getLongitude());
-        overlay.me = p;
+        if (stale) {
+            initialPosition = p;
+        } else {
+            overlay.me = p;
+        }
         if (!haveFix && !userMoved) {
             map.getController().setCenter(p);
             map.getController().setZoom(DEFAULT_ZOOM);
