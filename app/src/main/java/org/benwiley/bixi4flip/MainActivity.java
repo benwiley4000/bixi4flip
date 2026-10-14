@@ -154,7 +154,6 @@ public class MainActivity extends Activity {
     @Override protected void onResume() {
         super.onResume();
         map.onResume();
-        startLocation();
         ui.removeCallbacks(autoRefresh);
         ui.post(autoRefresh);
     }
