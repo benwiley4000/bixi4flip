@@ -68,7 +68,8 @@ public class MainActivity extends Activity {
     private StationOverlay overlay;
     private LocationManager locationManager;
     private boolean userMoved = false;
-    private String updatedText = "Chargement...";
+    private String updatedText = "Chargement…";
+    private String locationText = "Localisation…";
 
     private GeoPoint initialPosition = MONTREAL;
 
@@ -122,7 +123,7 @@ public class MainActivity extends Activity {
         topBar = new TextView(this);
         topBar.setBackgroundColor(GREY);
         topBar.setTextColor(Color.WHITE);
-        topBar.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        topBar.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         topBar.setPadding(4, 4, 4, 4);
         topBar.setSingleLine(true);
         topBar.setEllipsize(TextUtils.TruncateAt.END);
@@ -244,8 +245,10 @@ public class MainActivity extends Activity {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            locationText = "Position indispo";
             return;
         }
+        locationText = "Localisation…";
         Location best = null;
         for (String prov : new String[]{LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER}) {
             try {
@@ -268,6 +271,7 @@ public class MainActivity extends Activity {
             initialPosition = p;
         } else {
             overlay.me = p;
+            locationText = "Localisé";
         }
         if (!userMoved) {
             map.getController().setCenter(p);
@@ -360,11 +364,11 @@ public class MainActivity extends Activity {
     }
 
     private void updateTopBar() {
-        topBar.setText("1 = Dézoomer    3 = Zoomer    5 = Réinitialiser");
+        topBar.setText("1 = Dézoomer \uD83D\uDD0D−  |  3 = Zoomer \uD83D\uDD0D+  |  5 = Recentrer");
     }
 
     private void updateBottomBar() {
-        bottomBar.setText("Reguliers/Électriques/Vides | " + updatedText);
+        bottomBar.setText("Reg/Élec/Vides | " + updatedText + " | " + locationText);
     }
 
     // ---------------------------------------------------------------- drawing
