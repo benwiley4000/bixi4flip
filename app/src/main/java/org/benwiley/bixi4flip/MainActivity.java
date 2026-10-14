@@ -248,9 +248,11 @@ public class MainActivity extends Activity {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             locationText = "Position indispo";
+            updateBottomBar();
             return;
         }
         locationText = "Localisation…";
+        updateBottomBar();
         Location best = null;
         for (String prov : new String[]{LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER}) {
             try {
@@ -274,6 +276,7 @@ public class MainActivity extends Activity {
         } else {
             overlay.me = p;
             locationText = "Localisé";
+            updateBottomBar();
         }
         if (!userMoved) {
             map.getController().setCenter(p);
