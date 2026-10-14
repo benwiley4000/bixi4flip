@@ -68,7 +68,6 @@ public class MainActivity extends Activity {
     private StationOverlay overlay;
     private LocationManager locationManager;
     private boolean userMoved = false;
-    private boolean haveFix = false;
     private String updatedText = "Chargement...";
 
     private GeoPoint initialPosition = MONTREAL;
@@ -271,11 +270,10 @@ public class MainActivity extends Activity {
         } else {
             overlay.me = p;
         }
-        if (!haveFix && !userMoved) {
+        if (!userMoved) {
             map.getController().setCenter(p);
             map.getController().setZoom(DEFAULT_ZOOM);
         }
-        haveFix = true;
         map.invalidate();
         getSharedPreferences("lastpos", MODE_PRIVATE).edit()
             .putFloat("lat", (float) p.getLatitude())
