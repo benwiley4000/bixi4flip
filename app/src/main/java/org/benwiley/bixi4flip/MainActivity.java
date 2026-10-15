@@ -209,6 +209,7 @@ public class MainActivity extends Activity {
     }
 
     private void setZoomNow(double z) {
+        userMoved = true;
         map.getController().setZoom(Math.round(z));
     }
 
