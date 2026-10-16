@@ -69,8 +69,8 @@ public class MainActivity extends Activity {
     private LocationManager locationManager;
     private boolean userMoved = false;
     private String updatedText = "Chargement…";
-    private String locationText = "Localisation…";
-
+    private String locationText = "\uD83D\uDCE1 Repérage…";
+    private String roamingText = "\uD83D\uDC40 5=Recentrer";
     private GeoPoint initialPosition = MONTREAL;
 
     private final Handler ui = new Handler(Looper.getMainLooper());
@@ -211,6 +211,7 @@ public class MainActivity extends Activity {
     private void setZoomNow(double z) {
         userMoved = true;
         map.getController().setZoom(Math.round(z));
+        updateBottomBar();
     }
 
     private boolean isHandled(int k) {
@@ -228,6 +229,7 @@ public class MainActivity extends Activity {
         Projection p = map.getProjection();
         Point c = p.toPixels(map.getMapCenter(), null);
         map.getController().setCenter(p.fromPixels(c.x + dx, c.y + dy));
+        updateBottomBar();
     }
 
     private void recenter() {
@@ -239,6 +241,7 @@ public class MainActivity extends Activity {
         startLocation();
         userMoved = false;
         map.getController().setZoom(DEFAULT_ZOOM);
+        updateBottomBar();
     }
 
     // ---------------------------------------------------------------- location
@@ -248,11 +251,11 @@ public class MainActivity extends Activity {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            locationText = "Position indispo";
+            locationText = "⚠\uFE0F Aucun GPS";
             updateBottomBar();
             return;
         }
-        locationText = "Localisation…";
+        locationText = "\uD83D\uDCE1 Repérage…";
         updateBottomBar();
         Location best = null;
         for (String prov : new String[]{LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER}) {
@@ -276,14 +279,14 @@ public class MainActivity extends Activity {
             initialPosition = p;
         } else {
             overlay.me = p;
-            locationText = "Localisé";
-            updateBottomBar();
+            locationText = "✅ Localisé";
         }
         if (!userMoved) {
             map.getController().setCenter(p);
             map.getController().setZoom(DEFAULT_ZOOM);
         }
         map.invalidate();
+        updateBottomBar();
         getSharedPreferences("lastpos", MODE_PRIVATE).edit()
             .putFloat("lat", (float) p.getLatitude())
             .putFloat("lon", (float) p.getLongitude())
@@ -374,7 +377,9 @@ public class MainActivity extends Activity {
     }
 
     private void updateBottomBar() {
-        bottomBar.setText("Reg/Élec/Vides | " + updatedText + " | " + locationText);
+        String lastText = overlay.me == null || map.getBoundingBox().contains(overlay.me)
+                ? locationText : roamingText;
+        bottomBar.setText("Reg/Élec/Vide | " + updatedText + " | " + lastText);
     }
 
     // ---------------------------------------------------------------- drawing
