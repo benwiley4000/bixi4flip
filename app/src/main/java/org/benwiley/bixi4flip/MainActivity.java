@@ -187,10 +187,18 @@ public class MainActivity extends Activity {
         }
         int step = Math.min(map.getWidth(), map.getHeight()) / 4;
         switch (e.getKeyCode()) {
-            case KeyEvent.KEYCODE_DPAD_LEFT:  pan(-step, 0); return true;
-            case KeyEvent.KEYCODE_DPAD_RIGHT: pan(step, 0);  return true;
-            case KeyEvent.KEYCODE_DPAD_UP:    pan(0, -step); return true;
-            case KeyEvent.KEYCODE_DPAD_DOWN:  pan(0, step);  return true;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_4:
+                pan(-step, 0); return true;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_6:
+                pan(step, 0);  return true;
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_2:
+                pan(0, -step); return true;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_8:
+                pan(0, step);  return true;
             case KeyEvent.KEYCODE_3:
                 // Zoom instantly instead of with transition
                 setZoomNow(map.getZoomLevelDouble() + 1); return true;
@@ -219,6 +227,7 @@ public class MainActivity extends Activity {
             case KeyEvent.KEYCODE_DPAD_LEFT: case KeyEvent.KEYCODE_DPAD_RIGHT:
             case KeyEvent.KEYCODE_DPAD_UP: case KeyEvent.KEYCODE_DPAD_DOWN:
             case KeyEvent.KEYCODE_1: case KeyEvent.KEYCODE_3: case KeyEvent.KEYCODE_5:
+            case KeyEvent.KEYCODE_2: case KeyEvent.KEYCODE_4: case KeyEvent.KEYCODE_6: case KeyEvent.KEYCODE_8:
                 return true;
         }
         return false;
