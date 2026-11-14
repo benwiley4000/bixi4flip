@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
         super.onCreate(b);
 
         // Keep the tile cache in app-private storage: no storage permission needed.
-        Configuration.getInstance().setUserAgentValue("Bixi4Flip/1.0 (therealbenwiley@gmail.com)");
+        Configuration.getInstance().setUserAgentValue("Bixi4Flip/1.3.0 (therealbenwiley@gmail.com)");
         File base = new File(getCacheDir(), "osmdroid");
         Configuration.getInstance().setOsmdroidBasePath(base);
         Configuration.getInstance().setOsmdroidTileCache(new File(base, "tiles"));
@@ -229,9 +229,6 @@ public class MainActivity extends Activity {
                 // map.getController().zoomOut(); return true;
             case KeyEvent.KEYCODE_5:
                 recenter(); return true;
-// Disable force refresh for now
-//            case KeyEvent.KEYCODE_0:
-//                refreshStations(); return true;
         }
         return super.dispatchKeyEvent(e);
     }
